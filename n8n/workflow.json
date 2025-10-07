@@ -1,0 +1,273 @@
+{
+  "name": "Exportar Backlog desde Frontend (Webhook → CSV → SendGrid)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "export-backlog",
+        "authentication": "basicAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "ff174e71-93ba-44d5-a7df-9d40575ad56e",
+      "name": "Webhook",
+      "webhookId": "d937c4d7-8fec-498a-bf2c-fcf782e8934b",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "HD22fLEO84wud2zl",
+          "name": "Unnamed credential"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "mail",
+        "fromEmail": "elianrhbn@gmail.com",
+        "fromName": "Elián",
+        "toEmail": "={{ $('Webhook').item.json.body.email }}",
+        "subject": "=Backlog Kanban CSV",
+        "contentValue": "Here is your CSV of Kanban",
+        "additionalFields": {
+          "attachments": "=file"
+        }
+      },
+      "type": "n8n-nodes-base.sendGrid",
+      "typeVersion": 1,
+      "position": [
+        608,
+        336
+      ],
+      "id": "eab65185-9937-44ce-9cfb-7cbf78342c4e",
+      "name": "Send an email",
+      "credentials": {
+        "sendGridApi": {
+          "id": "hF5z5OfXrangfQBO",
+          "name": "SendGrid account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "tasks",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        192,
+        0
+      ],
+      "id": "8287b120-18a4-4650-8498-39e72709c53d",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7ad1076a-db95-4e51-b874-6de3212f0807",
+              "name": "ID",
+              "value": "={{ $json[\"_id\"] }}",
+              "type": "string"
+            },
+            {
+              "id": "5b4749fe-24a5-4219-b076-cd2e7b1a7837",
+              "name": "Título",
+              "value": "={{ $json[\"title\"] }}",
+              "type": "string"
+            },
+            {
+              "id": "a778930c-f5a4-499d-b9ca-790c45e5bb92",
+              "name": "Descripción",
+              "value": "={{ $json[\"description\"] }}",
+              "type": "string"
+            },
+            {
+              "id": "f47eb22d-d251-4987-9a53-706bc8d8c786",
+              "name": "Columna",
+              "value": "={{ $json[\"columnId\"] }}",
+              "type": "string"
+            },
+            {
+              "id": "5fcad366-7833-4e50-9ccc-2a699da9cdef",
+              "name": "Creado",
+              "value": "={{ new Date($json[\"createdAt\"]).toLocaleString() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        400,
+        0
+      ],
+      "id": "701a4957-83e3-46cd-9aca-93db35d7b8e9",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "options": {
+          "delimiter": ",",
+          "fileName": "={\n  {\n    \"backlog-\" + new Date().toISOString().slice(0, 10) + \".csv\";\n  }\n}\n",
+          "headerRow": true
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        608,
+        0
+      ],
+      "id": "2302bb1b-c06d-41d2-9f77-088fc6c80001",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        384,
+        336
+      ],
+      "id": "14697f22-8878-477c-a1e3-deaf7687b73b",
+      "name": "Merge"
+    }
+  ],
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "lihtronx.app.n8n.cloud",
+            "user-agent": "node",
+            "content-length": "511",
+            "accept": "*/*",
+            "accept-encoding": "gzip, br",
+            "accept-language": "*",
+            "authorization": "Basic ZXhwb3J0ZXI6dG9rZW4=",
+            "cdn-loop": "cloudflare; loops=1; subreqs=1",
+            "cf-connecting-ip": "186.136.211.93",
+            "cf-ew-via": "15",
+            "cf-ipcountry": "AR",
+            "cf-ray": "989f6fced23675f3-EZE",
+            "cf-visitor": "{\"scheme\":\"https\"}",
+            "cf-worker": "n8n.cloud",
+            "content-type": "multipart/form-data; boundary=----formdata-undici-024027308149",
+            "sec-fetch-mode": "cors",
+            "x-forwarded-for": "186.136.211.93, 104.23.237.16",
+            "x-forwarded-host": "lihtronx.app.n8n.cloud",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "traefik-prod-users-gwc-44-68df68bcf-nbsj5",
+            "x-is-trusted": "yes",
+            "x-real-ip": "186.136.211.93"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "email": "elianleesin@gmail.com"
+          },
+          "webhookUrl": "https://lihtronx.app.n8n.cloud/webhook/export-backlog",
+          "executionMode": "production"
+        },
+        "binary": {
+          "file": {
+            "mimeType": "text/csv",
+            "fileType": "text",
+            "fileExtension": "csv",
+            "data": "filesystem-v2",
+            "fileName": "backlog-2025-10-05.csv",
+            "id": "filesystem-v2:workflows/W1CSeelkzJf1Ep3U/executions/temp/binary_data/ef6d028e-551c-4b4d-9ac7-499cd3dd7cfa",
+            "fileSize": "222 B"
+          }
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Send an email": {
+      "main": [
+        []
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Send an email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "9ce04930-c557-40d8-8f8f-be545eaf017f",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "669eea2f9d5ad4a6ceaf477ac82a184f9088b994e9dc90ba32fa38f91c23e223"
+  },
+  "id": "W1CSeelkzJf1Ep3U",
+  "tags": []
+}

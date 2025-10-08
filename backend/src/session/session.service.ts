@@ -4,6 +4,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Session, SessionDocument, hashToken } from './schemas/session.schema';
 
+
+// Servicio de sesion con la base de datos para asociar las sesión por access_token con el usuario
 @Injectable()
 export class SessionService {
   constructor(

@@ -2,6 +2,8 @@ import { io, Socket } from 'socket.io-client'
 
 let socket: Socket | null = null
 
+// Manejo de WebSockets general en el frontend para comunicación con el backend en tiempo real
+
 export function getSocket (): Socket {
   if (socket) return socket
 

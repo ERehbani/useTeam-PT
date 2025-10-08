@@ -37,3 +37,7 @@
     ```
 
  
+# Aclaraciones del email vía n8n
+`Una vez que se ingrese el email para exportar el archivo, se recibirá en la sección de Spam`
+
+ 

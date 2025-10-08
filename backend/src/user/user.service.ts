@@ -1,14 +1,15 @@
 /* eslint-disable prettier/prettier */
 import { Injectable, UnauthorizedException } from '@nestjs/common'
-import { CreateUserDto } from './dto/create-user.dto'
-import { UpdateUserDto } from './dto/update-user.dto'
-import { InjectModel } from '@nestjs/mongoose'
-import { User, UserDocument } from './schemas/user.schema'
-import { Model, StringSchemaDefinition, Types } from 'mongoose'
-import * as bcrypt from 'bcrypt'
 import { JwtService } from '@nestjs/jwt'
+import { InjectModel } from '@nestjs/mongoose'
+import * as bcrypt from 'bcrypt'
+import { Model, Types } from 'mongoose'
 import { SessionService } from 'src/session/session.service'
+import { CreateUserDto } from './dto/create-user.dto'
+import { User, UserDocument } from './schemas/user.schema'
 
+
+// Servicio de usuario con la base de datos
 @Injectable()
 export class UserService {
   constructor (
@@ -36,6 +37,8 @@ export class UserService {
     return await bcrypt.compare(password, hashed)
   }
 
+  // validacion de usuario con passport
+
   async validateUser (email: string, pass: string): Promise<any> {
     const user = await this.findByEmail(email)
     if (user && (await this.validatePassword(pass, user.password))) {
@@ -44,6 +47,8 @@ export class UserService {
     }
     return null
   }
+
+  // login con passport
 
   async login(email: string, password: string, ua: string | undefined, ip: string | undefined) {
     const user = await this.userModel.findOne({ email });

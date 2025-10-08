@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { KanbanService } from './kanban.service';
-import { KanbanGateway } from './kanban.gateway';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Task, TaskSchema } from './schemas/task.schema';
-import { Column, ColumnSchema } from './schemas/column.schema';
 import { KanbanController } from './kanban.controller';
+import { KanbanGateway } from './kanban.gateway';
+import { KanbanService } from './kanban.service';
+import { Column, ColumnSchema } from './schemas/column.schema';
+import { Task, TaskSchema } from './schemas/task.schema';
 
 @Module({
   imports: [

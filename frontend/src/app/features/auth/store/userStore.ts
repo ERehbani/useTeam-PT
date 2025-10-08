@@ -1,6 +1,7 @@
 import { User } from '@/app/entities/user/types'
 import { create } from 'zustand'
 
+// Store de usuario para manejar el estado del usuario
 interface UserStore {
   user: User
   isLogged: boolean

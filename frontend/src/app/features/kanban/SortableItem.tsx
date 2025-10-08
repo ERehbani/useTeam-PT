@@ -9,7 +9,7 @@ import { Spinner } from '@/shared/ui/spinner'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { Pencil, X } from 'lucide-react'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { toast } from 'sonner'
 
 function SortableItem({
@@ -41,8 +41,7 @@ function SortableItem({
   )
   const [isPressed, setIsPressed] = useState(false)
 
-  const handlePointerDown = () => setIsPressed(true)
-  const handlePointerUp = () => setIsPressed(false)
+
 
   const style = {
     transform: CSS.Transform.toString(transform),

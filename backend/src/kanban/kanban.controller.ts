@@ -1,9 +1,10 @@
-import { Body, Controller, Delete, Param } from '@nestjs/common'
-import { KanbanService } from './kanban.service'
-import { Get, Post } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common'
 import { CreateKanbanDto } from './dto/create-kanban.dto'
 import { KanbanGateway } from './kanban.gateway'
+import { KanbanService } from './kanban.service'
 
+
+// Controlador del kanban con sus tasks
 @Controller('kanban')
 export class KanbanController {
   constructor (private readonly kanbanService: KanbanService, private readonly gateway: KanbanGateway) {}

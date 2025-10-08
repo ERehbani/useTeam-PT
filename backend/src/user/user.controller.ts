@@ -1,6 +1,5 @@
 /* eslint-disable prettier/prettier */
 import {
-  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -8,20 +7,17 @@ import {
   Param,
   Post,
   Req,
-  UnauthorizedException,
-  UseGuards,
+  UseGuards
 } from '@nestjs/common'
-import { CreateUserDto } from './dto/create-user.dto'
-import { UserService } from './user.service'
-import { SessionService } from 'src/session/session.service'
 import { ExtractJwt } from 'passport-jwt'
 import { JwtAuthGuard } from 'src/kanban/lib/jwt.auth-guard'
+import { SessionService } from 'src/session/session.service'
+import { CreateUserDto } from './dto/create-user.dto'
+import { UserService } from './user.service'
 
-type loginType = {
-  _id: string
-  email: string
-}
 
+
+// Controlador del usuario con sus metodos
 @Controller('user')
 export class UserController {
   constructor (

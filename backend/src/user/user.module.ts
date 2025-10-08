@@ -1,15 +1,15 @@
 /* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common'
-import { UserService } from './user.service'
-import { UserController } from './user.controller'
-import { PassportModule } from '@nestjs/passport'
+import { ConfigModule } from '@nestjs/config'
 import { JwtModule } from '@nestjs/jwt'
 import { MongooseModule } from '@nestjs/mongoose'
-import { User, UserSchema } from 'src/user/schemas/user.schema'
+import { PassportModule } from '@nestjs/passport'
 import { JwtStrategy } from 'src/kanban/lib/jwt.strategy'
 import { LocalStrategy } from 'src/kanban/lib/local.strategy'
-import { ConfigModule } from '@nestjs/config'
-import {SessionModule} from 'src/session/session.module'
+import { SessionModule } from 'src/session/session.module'
+import { User, UserSchema } from 'src/user/schemas/user.schema'
+import { UserController } from './user.controller'
+import { UserService } from './user.service'
 
 @Module({
   imports: [

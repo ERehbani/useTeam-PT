@@ -15,6 +15,7 @@ export function cn (...inputs: ClassValue[]) {
 export type AuthUser = { email: string; password: string }
 export type AuthResponse = { access_token: string; user?: any }
 
+// Manejo de autenticación
 export async function registerUser (user: AuthUser) {
   const { data } = await axios.post('/api/auth/register', user)
   return data

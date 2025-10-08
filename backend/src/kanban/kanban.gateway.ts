@@ -5,9 +5,10 @@ import {
   WebSocketServer,
 } from '@nestjs/websockets'
 import { Server } from 'socket.io'
-import { CreateKanbanDto } from './dto/create-kanban.dto'
 import { KanbanService } from './kanban.service'
 
+
+// Manejo de WebSockets para comunicarse con el frontend
 @WebSocketGateway({
   namespace: '/kanban',
   cors: {

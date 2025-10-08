@@ -1,18 +1,17 @@
 /* eslint-disable prettier/prettier */
 import {
-  Injectable,
   BadRequestException,
+  Injectable,
   NotFoundException,
 } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
-import { Model } from 'mongoose'
+import { Model, Types } from 'mongoose'
 import { CreateKanbanDto } from './dto/create-kanban.dto'
-import { UpdateKanbanDto } from './dto/update-kanban.dto'
 import { Column } from './schemas/column.schema'
 import { Task } from './schemas/task.schema'
-import { EColumn } from './lib'
-import { Types } from 'mongoose'
 
+
+// Comunicacion de la logica con el backend con la base de datos
 @Injectable()
 export class KanbanService {
   constructor (
